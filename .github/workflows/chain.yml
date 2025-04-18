@@ -19,6 +19,4 @@ jobs:
   call-analyze:
     needs: call-random
     uses: ./.github/workflows/analyze.yml
-    with:
-      number: ${{ needs.call-random.outputs.random_number }}
     secrets: inherit 

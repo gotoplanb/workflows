@@ -15,20 +15,14 @@ on:
         required: true
         type: number
         default: 100
-    outputs:
-      random_number:
-        description: "The generated random number"
-        value: ${{ jobs.random.outputs.random_number }}
 
 jobs:
   random:
     runs-on: ubuntu-latest
-    outputs:
-      random_number: ${{ steps.generate.outputs.number }}
     steps:
       - name: Generate random number
         id: generate
         run: |
           number=$(( $RANDOM % ${{ inputs.max_number }} + 1 ))
-          echo "number=$number" >> $GITHUB_OUTPUT
+          echo "RANDOM_NUMBER=$number" >> $GITHUB_ENV
           echo "Generated random number: $number" 
