@@ -1,0 +1,21 @@
+name: Hello World Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name to greet (optional)'
+        required: false
+        type: string
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet with name
+        if: inputs.name != ''
+        run: echo "Hello ${{ inputs.name }}"
+      
+      - name: Greet without name
+        if: inputs.name == ''
+        run: echo "Hello World" 
