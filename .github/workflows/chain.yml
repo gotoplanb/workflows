@@ -1,0 +1,24 @@
+name: Chain Workflows
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_number:
+        description: 'Maximum number for random generation'
+        required: true
+        type: number
+        default: 100
+
+jobs:
+  call-random:
+    uses: ./.github/workflows/random.yml
+    with:
+      max_number: ${{ inputs.max_number }}
+    secrets: inherit
+
+  call-analyze:
+    needs: call-random
+    uses: ./.github/workflows/analyze.yml
+    with:
+      number: ${{ needs.call-random.outputs.random_number }}
+    secrets: inherit 

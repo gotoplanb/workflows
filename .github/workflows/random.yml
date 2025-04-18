@@ -8,6 +8,17 @@ on:
         required: true
         type: number
         default: 100
+  workflow_call:
+    inputs:
+      max_number:
+        description: 'Maximum number for random generation'
+        required: true
+        type: number
+        default: 100
+    outputs:
+      random_number:
+        description: "The generated random number"
+        value: ${{ jobs.random.outputs.random_number }}
 
 jobs:
   random:
