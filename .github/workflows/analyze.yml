@@ -1,0 +1,22 @@
+name: Analyze Number
+
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: 'Number to analyze'
+        required: true
+        type: number
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if even or odd
+        run: |
+          number=${{ inputs.number }}
+          if [ $(( number % 2 )) -eq 0 ]; then
+            echo "🎯 The number $number is even!"
+          else
+            echo "🎯 The number $number is odd!"
+          fi 

@@ -1,0 +1,23 @@
+name: Square Number
+
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        description: 'Number to square'
+        required: true
+        type: number
+
+jobs:
+  square:
+    runs-on: ubuntu-latest
+    outputs:
+      squared_result: ${{ steps.square_calc.outputs.squared }}
+    steps:
+      - name: Square the number
+        id: square_calc
+        run: |
+          number=${{ inputs.number }}
+          squared=$(( number * number ))
+          echo "squared=$squared" >> $GITHUB_OUTPUT
+          echo "Squared $number to get: $squared" 

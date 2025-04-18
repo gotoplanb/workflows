@@ -1,0 +1,23 @@
+name: Random Number Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_number:
+        description: 'Maximum number for random generation'
+        required: true
+        type: number
+        default: 100
+
+jobs:
+  random:
+    runs-on: ubuntu-latest
+    outputs:
+      random_number: ${{ steps.generate.outputs.number }}
+    steps:
+      - name: Generate random number
+        id: generate
+        run: |
+          number=$(( $RANDOM % ${{ inputs.max_number }} + 1 ))
+          echo "number=$number" >> $GITHUB_OUTPUT
+          echo "Generated random number: $number" 
