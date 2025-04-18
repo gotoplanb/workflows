@@ -22,8 +22,15 @@ jobs:
     steps:
       - name: Check if even or odd
         run: |
-          if [ $(( $RANDOM_NUMBER % 2 )) -eq 0 ]; then
-            echo "🎯 The number $RANDOM_NUMBER is even!"
+          # Use environment variable if set, otherwise use input
+          if [ -n "$RANDOM_NUMBER" ]; then
+            number=$RANDOM_NUMBER
           else
-            echo "🎯 The number $RANDOM_NUMBER is odd!"
+            number=${{ inputs.number }}
+          fi
+          
+          if [ $(( number % 2 )) -eq 0 ]; then
+            echo "🎯 The number $number is even!"
+          else
+            echo "🎯 The number $number is odd!"
           fi 
